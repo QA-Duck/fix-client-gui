@@ -1,0 +1,65 @@
+.session-list__group
+    position: relative
+    width: 100%
+    overflow: hidden
+    border-bottom: 1px solid #31383a
+
+.session-list__title
+    cursor: pointer
+    color: white
+    display: flex
+    justify-content: left
+    align-items: center
+    padding: 10px 25px 10px 15px
+
+    p
+        display: inline-block
+        margin-left: 10px
+
+.session-list__title:hover
+    background-color: #2d3334
+
+.show 
+    max-height: 1000px
+
+.hide
+    max-height: 0px
+
+.arrow-down
+    transform: rotate(45deg)
+
+.arrow-right
+    transform: rotate(-45deg)
+
+.arrow 
+    transition: transform 0.3s
+    border: solid white
+    border-width: 0 2px 2px 0
+    display: inline-block
+    padding: 3px
+
+.session-list__slider li:hover
+    background-color: #2d3334
+
+.session-list__slider
+    position: relative
+    li
+        display: flex
+        justify-content: left
+        align-items: center
+        cursor: pointer
+        padding: 5px 45px 5px 25px
+        p
+            color: #cbcbcb
+            margin-left: 10px
+
+.yellow
+    background-color: #a54747
+
+.green
+    background-color: #85b98b
+
+.circle
+  height: 6px
+  width: 6px
+  border-radius: 50%

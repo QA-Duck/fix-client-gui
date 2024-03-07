@@ -1,19 +1,12 @@
-import SideMenu from '../side-menu/SideMenu'
+import SessionList from '../session-list/SessionList'
 import './Sidebar.sass'
 
 
 function Sidebar() {
-
   return (
-    <>
-      <div id="sidebar">
-
-        <SideMenu>
-        </SideMenu>
-
-      </div>
-    </>
+    <div id="sidebar">
+      <SessionList></SessionList>
+    </div>
   )
 }
-
 export default Sidebar

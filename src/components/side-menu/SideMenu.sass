@@ -1,4 +1,40 @@
 #side-menu
-    height: 100%
-    width: 60px
+    height: calc( 100vh - 40px)
+    width: 80px
+    padding: 0px 5px
     background-color: #272c2e
+    display: flex
+    flex-direction: column
+    border-right: 1px solid #32383a
+
+    ul
+        margin-top: 40px
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+.side-menu__item:hover
+    background-color: #2d3334
+    
+.side-menu__item
+    border-radius: 10px
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    align-items: center
+    padding: 15px 5px
+    width: 70px
+    margin-bottom: 10px
+
+    img
+        width: 30px
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -khtml-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+    p
+        font-size: 12px
+        margin-top: 15px
+        color: white
