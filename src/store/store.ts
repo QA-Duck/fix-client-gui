@@ -1,13 +1,17 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-const rootReducer = combineReducers({
+import sessionReducers from "./reducers/SessionSlice"
 
+const rootReducer = combineReducers({
+    sessionReducers,
+})
+
+export const store = configureStore({
+    reducer: rootReducer
 })
 
 export const setupStore = () => {
-    return configureStore({
-        reducer: rootReducer
-    })
+    return store
 }
 
 export type RootState = ReturnType<typeof rootReducer>

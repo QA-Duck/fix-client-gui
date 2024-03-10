@@ -1,29 +1,29 @@
-import { useState } from 'react';
+import IFixSessionGroup from '../../../models/IFixSessionGroup'
+import { sessionSlice } from '../../../store/reducers/SessionSlice'
 import './SessionItem.sass'
 
-export interface SessionItemProps {
-    name: string;
-    list: Array<string>
-    isOpen: boolean
-};
 
-const SessionItem : React.FC<SessionItemProps> = ({name, list, isOpen}) => {
-    
-    const [isOpenState, setIsOpen] = useState(isOpen)
+function SessionItem ({
+    name,
+    isOpen,
+    connections,
+}: IFixSessionGroup) {
+
+    const {toggleSideBar} = sessionSlice.actions
 
     return (
         <div className="session-list__group">
-            <div className='session-list__title' onClick={() => { setIsOpen(!isOpenState)}}>
-                <i className={isOpenState ? "arrow arrow-down" : "arrow arrow-right"}></i>
+            <div className='session-list__title' onClick={() => { toggleSideBar(name) }} >
+                <i className={`arrow ${isOpen ? "arrow-down" : "arrow-right"}`}></i>
                 <p>{name}</p> 
             </div>
-            <div className="session-list__container">
-            <ul className={isOpenState ? "session-list__slider show" : "session-list__slider hide"}>
+            <div className={`session-list__slider ${isOpen ? "show" : "hide"}`}>
+            <ul className="">
             {
-                list.map(text => 
-                    <li key={text}>
+                connections.map(connection => 
+                    <li key={connection.id}>
                         <div className="circle green"></div>
-                        <p>{text}</p>
+                        <p>{connection.name}</p>
                     </li>
                 )
             }

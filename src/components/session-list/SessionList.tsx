@@ -1,46 +1,31 @@
 import './SessionList.sass'
-import SessionItem, { SessionItemProps } from './session-item/SessionItem'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import SessionItem from './session-item/SessionItem'
+import { sessionSlice } from '../../store/reducers/SessionSlice'
+import { useEffect } from 'react'
 
 function SessionList() {
 
-  let items : Array<SessionItemProps> = [
-    {
-      "name" : "10.10.10.10",
-      "isOpen": false,
-      "list" : [
-        "ASD",
-        "FWF",
-        "SDSD"
-      ],
-    },
-    {
-      "name" : "10.10.10.qw",
-      "isOpen": false,
-      "list" : [
-        "ASD",
-        "FWF",
-        "SDSD"
-      ],
-    },
-    {
-      "name" : "10.10.10.1we",
-      "isOpen": false,
-      "list" : [
-        "ASD",
-        "FWF",
-        "SDSD"
-      ],
-    },
-    {
-      "name" : "10.10.10.ds",
-      "isOpen": false,
-      "list" : [
-        "ASD",
-        "FWF",
-        "SDSD"
-      ],
-    }
-  ]
+  const fixSessionGroups = useAppSelector(state => state.sessionReducers)
+  const {put} = sessionSlice.actions
+  const dispatch = useAppDispatch()
+
+  dispatch(
+    put({
+      name: "10.10.10.10",
+      isOpen: true,
+      connections: [{
+        id: "wef-wef-efw",
+        name: "FIX -> FIX",
+        status: false
+      }]
+    })
+  )
+
+  useEffect(() =>{
+
+    console.log(fixSessionGroups)
+  }, [fixSessionGroups])
 
   return (
     <div className="session-list">
@@ -49,11 +34,15 @@ function SessionList() {
         <button>Import</button>
       </div>
       {
-        items.map(sessionItem => <SessionItem key={sessionItem.name}
-            isOpen={sessionItem.isOpen} 
-            name={sessionItem.name} 
-            list={sessionItem.list}>
-          </SessionItem>)
+        Array.from(fixSessionGroups.values()).map(sessionItem => 
+          <SessionItem
+            key={sessionItem.name} 
+            name={sessionItem.name}
+            isOpen={sessionItem.isOpen}
+            connections={sessionItem.connections} 
+          >
+          </SessionItem>
+        )
       }
     </div>
   )

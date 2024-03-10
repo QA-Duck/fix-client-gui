@@ -1,6 +1,9 @@
 import { app, BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import { createFileRoute, createURLRoute } from 'electron-router-dom'
 import path from 'node:path'
+import { enableMapSet } from 'immer'
+
+enableMapSet();
 
 
 process.env.DIST = path.join(__dirname, '../dist')
