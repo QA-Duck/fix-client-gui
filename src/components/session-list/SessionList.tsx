@@ -1,31 +1,16 @@
 import './SessionList.sass'
+import './session-item/SessionItem.sass'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import SessionItem from './session-item/SessionItem'
-import { sessionSlice } from '../../store/reducers/SessionSlice'
+import { groupListSelector, sessionSlice } from '../../store/reducers/SessionSlice'
 import { useEffect } from 'react'
 
 function SessionList() {
 
-  const fixSessionGroups = useAppSelector(state => state.sessionReducers)
-  const {put} = sessionSlice.actions
+  const { toggleSideBar } = sessionSlice.actions
+  const fixSessionGroups = useAppSelector(groupListSelector)
   const dispatch = useAppDispatch()
 
-  dispatch(
-    put({
-      name: "10.10.10.10",
-      isOpen: true,
-      connections: [{
-        id: "wef-wef-efw",
-        name: "FIX -> FIX",
-        status: false
-      }]
-    })
-  )
-
-  useEffect(() =>{
-
-    console.log(fixSessionGroups)
-  }, [fixSessionGroups])
+  useEffect(() => {}, [fixSessionGroups])
 
   return (
     <div className="session-list">
@@ -34,14 +19,25 @@ function SessionList() {
         <button>Import</button>
       </div>
       {
-        Array.from(fixSessionGroups.values()).map(sessionItem => 
-          <SessionItem
-            key={sessionItem.name} 
-            name={sessionItem.name}
-            isOpen={sessionItem.isOpen}
-            connections={sessionItem.connections} 
-          >
-          </SessionItem>
+        fixSessionGroups.map(item =>  
+          <div key={item.name} className="session-list__group">
+            <div className='session-list__title' onClick={() => { dispatch(toggleSideBar(item.name)) }} >
+                <i className={`arrow ${item.isOpen ? "arrow-down" : "arrow-right"}`}></i>
+                <p>{item.name}</p> 
+            </div>
+            <div className={`session-list__slider ${item.isOpen ? "show" : "hide"}`}>
+            <ul>
+            {
+                item.connections.map(connection => 
+                    <li key={connection.id}>
+                        <div className="circle green"></div>
+                        <p>{connection.name}</p>
+                    </li>
+                )
+            }
+            </ul>
+            </div>
+          </div>
         )
       }
     </div>

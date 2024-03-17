@@ -1,3 +1,4 @@
+import { useAppDispatch } from '../../../hooks/redux'
 import IFixSessionGroup from '../../../models/IFixSessionGroup'
 import { sessionSlice } from '../../../store/reducers/SessionSlice'
 import './SessionItem.sass'
@@ -9,11 +10,12 @@ function SessionItem ({
     connections,
 }: IFixSessionGroup) {
 
-    const {toggleSideBar} = sessionSlice.actions
+    const { toggleSideBar } = sessionSlice.actions
+    const dispatch = useAppDispatch()
 
     return (
         <div className="session-list__group">
-            <div className='session-list__title' onClick={() => { toggleSideBar(name) }} >
+            <div className='session-list__title' onClick={() => { dispatch(toggleSideBar(name)) }} >
                 <i className={`arrow ${isOpen ? "arrow-down" : "arrow-right"}`}></i>
                 <p>{name}</p> 
             </div>
