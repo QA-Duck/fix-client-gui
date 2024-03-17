@@ -21,15 +21,14 @@ export const sessionSlice = createSlice({
     initialState,
     reducers: {
         toggleSideBar(state, action: PayloadAction<string>) {
-            var group = state[action.payload]
+            const name = action.payload
+            const group = state[name]
             group.isOpen = !group.isOpen
             state = {...state, group}         
         },
 
         put(state, action: PayloadAction<IFixSessionGroup>) {
-            if(!state.hasOwnProperty(action.payload.name)) {
-                state[action.payload.name] = action.payload
-            }
+            state[action.payload.name] = action.payload
         }
     }
 })
