@@ -1,13 +1,17 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import sessionReducers from "./reducers/SessionSlice"
+import { sessionApi } from "./services/SessionService";
 
 const rootReducer = combineReducers({
     sessionReducers,
+    [sessionApi.reducerPath]: sessionApi.reducer
 })
 
 export const store = configureStore({
-    reducer: rootReducer
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleWare) => 
+        getDefaultMiddleWare().concat(sessionApi.middleware)
 })
 
 export const setupStore = () => {

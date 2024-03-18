@@ -1,45 +1,38 @@
 import './SessionList.sass'
-import './session-item/SessionItem.sass'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { groupListSelector, sessionSlice } from '../../store/reducers/SessionSlice'
+import { useAppSelector } from '../../hooks/redux'
+import { groupListSelector} from '../../store/reducers/SessionSlice'
 import { useEffect } from 'react'
+import { sessionApi } from '../../store/services/SessionService'
+import { NavigateFunction, useNavigate } from 'react-router-dom'
 
 function SessionList() {
 
-  const { toggleSideBar } = sessionSlice.actions
+  const {data: sessions} = sessionApi.useFetchSessionStatusQuery(null)
   const fixSessionGroups = useAppSelector(groupListSelector)
-  const dispatch = useAppDispatch()
+  const navigate: NavigateFunction = useNavigate()
 
   useEffect(() => {}, [fixSessionGroups])
+  
 
   return (
     <div className="session-list">
       <div className='session-list__tools'>
-        <button>New</button>
-        <button>Import</button>
+        <button>import</button>
+        <button>add</button>
       </div>
-      {
-        fixSessionGroups.map(item =>  
-          <div key={item.name} className="session-list__group">
-            <div className='session-list__title' onClick={() => { dispatch(toggleSideBar(item.name)) }} >
-                <i className={`arrow ${item.isOpen ? "arrow-down" : "arrow-right"}`}></i>
-                <p>{item.name}</p> 
-            </div>
-            <div className={`session-list__slider ${item.isOpen ? "show" : "hide"}`}>
-            <ul>
-            {
-                item.connections.map(connection => 
-                    <li key={connection.id}>
-                        <div className="circle green"></div>
-                        <p>{connection.name}</p>
-                    </li>
-                )
+          <ul className='session-list__container'>
+            { 
+              sessions && sessions.map(item => 
+                <li 
+                key={item.connection_uuid} 
+                className='session-list__item'
+                onClick={() => navigate("/session/" + item.connection_uuid)}>
+                    <p>{item.connection_name}</p>
+                    <div className={`circle ${item.connection_status.status == "BROKEN" ? "green" : ""}`}></div>
+                </li>
+              )
             }
-            </ul>
-            </div>
-          </div>
-        )
-      }
+          </ul>
     </div>
   )
 }
