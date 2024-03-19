@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../hooks/redux"
+import { useAppDispatch } from "../../store/hooks/redux"
 import { createSessionModalSlice } from "../../store/reducers/CreateSessionModalSlice"
 import "./CreateSessionForm.sass"
 

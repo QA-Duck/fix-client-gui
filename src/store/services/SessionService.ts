@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import IFixSessionShortInfo from "../../models/IFixSessionShortInfo";
+import IFixSessionShortInfo from "../models/IFixSessionShortInfo";
 
 
 export const sessionApi = createApi({

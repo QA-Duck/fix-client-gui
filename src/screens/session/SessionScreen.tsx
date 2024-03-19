@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar"
 import SessionList from "../../components/session-list/SessionList";
 import LogWindow from "../../components/log-window/LogWindow";
 import { sessionLogWindowSlice } from "../../store/reducers/LogMessageSlice";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 import { useEffect } from "react";
 
 function SessionScreen() {

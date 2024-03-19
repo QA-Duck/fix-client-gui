@@ -1,5 +1,5 @@
 import './SessionList.sass'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../store/hooks/redux'
 import { useEffect } from 'react'
 import { sessionApi } from '../../store/services/SessionService'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
