@@ -1,11 +1,13 @@
-import SessionList from '../session-list/SessionList'
 import './Sidebar.sass'
 
+type Props = {
+  children: string | JSX.Element | JSX.Element[]
+}
 
-function Sidebar() {
+function Sidebar({children}: Props) {
   return (
     <div id="sidebar">
-      <SessionList></SessionList>
+      {children}
     </div>
   )
 }

@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-
-import sessionReducers from "./reducers/SessionSlice"
+import createSessionModalReducers from "./reducers/CreateSessionModalSlice"
+import sessionLogWindowReducers from "./reducers/LogMessageSlice";
 import { sessionApi } from "./services/SessionService";
 
+
 const rootReducer = combineReducers({
-    sessionReducers,
+    createSessionModalReducers,
+    sessionLogWindowReducers,
     [sessionApi.reducerPath]: sessionApi.reducer
 })
 

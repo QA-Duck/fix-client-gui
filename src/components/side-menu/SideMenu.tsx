@@ -11,7 +11,7 @@ function SideMenu() {
   return (
     <div id="side-menu">
       <ul>
-        <li className="side-menu__item" onClick={() => navigate("/connections")}>
+        <li className="side-menu__item" onClick={() => navigate("/session")}>
             <img onDragStart={(e) => {e.preventDefault()}} src={ConnectionsImage} alt="" />
             <p>Connections</p>
         </li>

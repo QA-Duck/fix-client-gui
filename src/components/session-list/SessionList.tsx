@@ -1,24 +1,34 @@
 import './SessionList.sass'
-import { useAppSelector } from '../../hooks/redux'
-import { groupListSelector} from '../../store/reducers/SessionSlice'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { useEffect } from 'react'
 import { sessionApi } from '../../store/services/SessionService'
 import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { createSessionModalSlice } from '../../store/reducers/CreateSessionModalSlice'
+import ModalWindow from '../modal-window/ModalWindow'
+import CreateSessionForm from '../session-form/CreateSessionForm'
 
 function SessionList() {
 
   const {data: sessions} = sessionApi.useFetchSessionStatusQuery(null)
-  const fixSessionGroups = useAppSelector(groupListSelector)
+  const {createSessionModalIsOpen} = useAppSelector(state => state.createSessionModalReducers)
+  const {openModal} = createSessionModalSlice.actions
+  const dispatcher = useAppDispatch()
   const navigate: NavigateFunction = useNavigate()
 
-  useEffect(() => {}, [fixSessionGroups])
-  
+  useEffect(() => {}, [createSessionModalIsOpen])
 
   return (
     <div className="session-list">
+      {
+        createSessionModalIsOpen &&
+        <ModalWindow>
+          <CreateSessionForm></CreateSessionForm>
+        </ModalWindow>
+      }
+
       <div className='session-list__tools'>
         <button>import</button>
-        <button>add</button>
+        <button onClick={() => dispatcher(openModal())}>add</button>
       </div>
           <ul className='session-list__container'>
             { 
