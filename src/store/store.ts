@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import createSessionModalReducers from "./reducers/CreateSessionModalSlice"
-import sessionLogWindowReducers from "./reducers/LogMessageSlice";
+import sessionLogWindowReducers from "./reducers/SessionScreenSlice";
 import { sessionApi } from "./services/SessionService";
 
 

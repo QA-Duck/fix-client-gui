@@ -15,7 +15,7 @@ function SessionList() {
   const dispatcher = useAppDispatch()
   const navigate: NavigateFunction = useNavigate()
 
-  useEffect(() => {}, [createSessionModalIsOpen])
+  useEffect(() => {}, [createSessionModalIsOpen, sessions])
 
   return (
     <div className="session-list">

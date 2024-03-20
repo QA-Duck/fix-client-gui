@@ -1,54 +1,47 @@
-import { useParams } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar"
 import SessionList from "../../components/session-list/SessionList";
-import LogWindow from "../../components/log-window/LogWindow";
-import { sessionLogWindowSlice } from "../../store/reducers/LogMessageSlice";
-import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
+import sessionMessageService from "../../store/services/SessionMessageService";
+
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { sessionScreenSlice } from "../../store/reducers/SessionScreenSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks/redux";
 
 function SessionScreen() {
 
-  const {id} = useParams();
-  const {clients} = useAppSelector(state => state.sessionLogWindowReducers)
-  const {pushMessage} = sessionLogWindowSlice.actions
   const dispatch = useAppDispatch()
 
+  const { 
+    openMessageStream,
+    pushMessage 
+  } = sessionScreenSlice.actions
+
+  const { id } = useParams();
+  const { messages } = useAppSelector(state => state.sessionLogWindowReducers)
+
   if (id != undefined) {
-    let eventSource = new EventSource("http://localhost:8080/sessions/"+id+"/stream-flux");
-
-    eventSource.onmessage = function(event: MessageEvent<string>) {
-        console.log(event.data)
-        dispatch(pushMessage({client_uuid: id, message: event.data}))
-    };
-
-    eventSource.onerror = function(error) {
-      console.log(error)
-    }
+    sessionMessageService.connect(id, (message: MessageEvent<string>) => {
+      dispatch(openMessageStream(id))
+      dispatch(pushMessage({
+        uuid: id,
+        message: message.data
+      }))
+    })
   }
-
-  const messages =  clients.find(client => client.client_uuid == id)?.messages
 
   useEffect(() => {
-    console.log("ID: " + id)
-
+    console.log("Conponent was an update")
   }, [messages])
 
-  const elements = messages && messages.map(e => <p>{e}</p>)
-
-  const logs = () => {
-    if (elements != undefined) {
-      return <LogWindow>{elements}</LogWindow>
-    }
-  }
-  
   return (
   <>
     <Sidebar>
       <SessionList></SessionList>
     </Sidebar>
+
     <div id="session-screen">
       { 
-        logs()
+        <div>{id && messages[id].map((e, i) => <p key={i}>{e}</p>)}</div>
       }
     </div>
   </>
