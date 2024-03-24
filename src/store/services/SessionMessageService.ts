@@ -1,6 +1,6 @@
 export class SessionMessageService {
 
-    address: string = "http://localhost:8080/sessions/"
+    address: string = "http://localhost:8080/subscriptions/subscribe/"
     sources: Map<string, EventSource> = new Map()
 
     public connect(
@@ -8,7 +8,7 @@ export class SessionMessageService {
         onMessage: (ev: MessageEvent<string>) => void
     ): void {
         if (!this.sources.has(client_uuid)) {
-            const source = new EventSource(this.address + client_uuid + "/stream-flux")
+            const source = new EventSource(this.address + client_uuid)
             this.sources.set(client_uuid, source)
             source.onmessage = onMessage
         } 

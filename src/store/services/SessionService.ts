@@ -8,7 +8,7 @@ export const sessionApi = createApi({
     endpoints: (build) => ({
         fetchSessionStatus: build.query<IFixSessionShortInfo[], null>({
             query: () => ({
-                url: "/sessions/status"
+                url: "/sessions/select"
             })
         })
     })

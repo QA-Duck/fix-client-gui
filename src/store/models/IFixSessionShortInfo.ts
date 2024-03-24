@@ -1,7 +1,13 @@
-import IConnectionStatus from "./ConnectionStatus";
+export interface IFixSessionConnection {
+    sender: string,
+    target: string,
+    host: string,
+    port: number
+}
 
 export default interface IFixSessionShortInfo {
-    connection_uuid: string,
-    connection_name: string,
-    connection_status: IConnectionStatus
+    id: string,
+    name: string,
+    status: string,
+    connection: IFixSessionConnection
 }

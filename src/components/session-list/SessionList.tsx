@@ -34,11 +34,11 @@ function SessionList() {
             { 
               sessions && sessions.map(item => 
                 <li 
-                key={item.connection_uuid} 
+                key={item.id} 
                 className='session-list__item'
-                onClick={() => navigate("/session/" + item.connection_uuid)}>
-                    <p>{item.connection_name}</p>
-                    <div className={`circle ${item.connection_status.status == "BROKEN" ? "green" : ""}`}></div>
+                onClick={() => navigate("/session/" + item.id)}>
+                    <p>{item.name}</p>
+                    <div className={`circle ${item.status == "CREATED" ? "green" : ""}`}></div>
                 </li>
               )
             }
