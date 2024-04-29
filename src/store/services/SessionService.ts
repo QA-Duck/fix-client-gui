@@ -10,6 +10,11 @@ export const sessionApi = createApi({
             query: () => ({
                 url: "/sessions/select"
             })
+        }),
+        fetchSessionStatusByID: build.query<IFixSessionShortInfo, string>({
+            query: (sessionID) => ({
+                url: "/sessions/select/" + sessionID
+            })
         })
     })
 })
